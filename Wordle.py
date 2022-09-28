@@ -21,6 +21,12 @@ def wordle():
 
     gw = WordleGWindow()
     gw.add_enter_listener(enter_action)
+    
+    # Choose random word from WordleDictionary.py
+    randomWord = random.choice(FIVE_LETTER_WORDS)
+    # Set first row characters to the characters from randomWord
+    for col in range(0, N_COLS):
+        gw.set_square_letter(0, col, randomWord[col].upper())
 
 # Startup code
 
