@@ -28,9 +28,7 @@ def wordle():
             if s[col] == wordleWord[col]:
                 gw.set_square_color(gw.get_current_row(), col, CORRECT_COLOR)
         
-        # wordleWord copy that can be changed
-        copyWordleWord = wordleWord
-        # Set present color
+        # Set PRESENT_COLOR
         for col in range(0, N_COLS):
             # Check if letter color has already been filled out
             if gw.get_square_color(gw.get_current_row(), col) == UNKNOWN_COLOR:
