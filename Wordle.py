@@ -27,7 +27,6 @@ def wordle():
         for col in range (0, N_COLS):
             if s[col] == wordleWord[col]:
                 gw.set_square_color(gw.get_current_row(), col, CORRECT_COLOR)
-                print("yes")
         
         # wordleWord copy that can be changed
         copyWordleWord = wordleWord
