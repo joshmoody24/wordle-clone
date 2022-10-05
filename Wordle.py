@@ -38,15 +38,23 @@ def colorize_current_row(guess, answer, gw):
     # Turn near misses yellow
     for col in range(N_COLS):
         guess_letter = guess[col]
-        if(guess_letter in answer and word_counts[guess_letter] > 0):
+        if(guess_letter in answer and word_counts[guess_letter] > 0 and (gw.get_square_color(gw.get_current_row(), col) == UNKNOWN_COLOR)):
             gw.set_square_color(gw.get_current_row(), col, PRESENT_COLOR)
             word_counts[guess_letter] -= 1
 
 def wordle():
 
     gw = WordleGWindow()
-    answer = "HELLO"
+    # answer = "HELLO"
+    answer = random.choice(FIVE_LETTER_WORDS).upper()
+    print(answer)
     guessNum = 0
+
+    # Choose random word from WordleDictionary.py
+    randomWord = random.choice(FIVE_LETTER_WORDS)
+    # Set first row characters to the characters from randomWord
+    for col in range(0, N_COLS):
+        gw.set_square_letter(0, col, randomWord[col].upper())
 
     def enter_action(guess):
         if(" " in guess):
