@@ -8,7 +8,7 @@ BE SURE TO UPDATE THIS COMMENT WHEN YOU WRITE THE CODE.
 import random
 
 from WordleDictionary import FIVE_LETTER_WORDS
-from WordleGraphics import WordleGWindow, N_COLS, N_ROWS, CORRECT_COLOR, PRESENT_COLOR, MISSING_COLOR, UNKNOWN_COLOR
+from WordleGraphics import WordleGWindow, N_COLS, N_ROWS, CORRECT_COLOR, PRESENT_COLOR, MISSING_COLOR, UNKNOWN_COLOR, KEY_LABELS
 
 # returns true if the input is a valid 5-letter english word
 def is_english(word):
@@ -42,6 +42,28 @@ def colorize_current_row(guess, answer, gw):
             gw.set_square_color(gw.get_current_row(), col, PRESENT_COLOR)
             word_counts[guess_letter] -= 1
 
+def colorize_keyboard(guess, answer, gw):
+    
+    # Set keys to green, yellow, or grey depending on if they are correct
+    for col in range (N_COLS):
+        guess_letter = guess[col]
+        # Set to yellow if the letter is in the word.
+        # If the letter is already green, don't change it to yellow again.
+        if(guess_letter in answer and gw.get_key_color(guess_letter.upper()) != CORRECT_COLOR):
+            gw.set_key_color(guess_letter.upper(), PRESENT_COLOR)
+        # Set to green if correctly guessed
+        if(guess_letter == answer[col]):
+            gw.set_key_color(guess_letter.upper(), CORRECT_COLOR)
+        # Set to dark grey if not in word
+        if not(guess_letter in answer):
+            gw.set_key_color(guess_letter.upper(), MISSING_COLOR)
+        
+
+    
+
+    # gw.set_key_color('K', CORRECT_COLOR)
+    return
+
 def wordle():
 
     gw = WordleGWindow()
@@ -51,10 +73,12 @@ def wordle():
     guessNum = 0
 
     # Choose random word from WordleDictionary.py
-    randomWord = random.choice(FIVE_LETTER_WORDS)
+    # randomWord = random.choice(FIVE_LETTER_WORDS)
     # Set first row characters to the characters from randomWord
-    for col in range(0, N_COLS):
-        gw.set_square_letter(0, col, randomWord[col].upper())
+    # for col in range(0, N_COLS):
+    #     gw.set_square_letter(0, col, randomWord[col].upper())
+
+    #set_keyboard_colors_default(gw)
 
     def enter_action(guess):
         if(" " in guess):
@@ -63,6 +87,7 @@ def wordle():
             gw.show_message("Not in word list")
             return
         colorize_current_row(guess, answer, gw)
+        colorize_keyboard(guess, answer, gw)
         # Tells the user when they guessed the right word
         if guess == answer:
             gw.show_message("That's correct! Nice job!")
