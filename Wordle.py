@@ -8,9 +8,16 @@ BE SURE TO UPDATE THIS COMMENT WHEN YOU WRITE THE CODE.
 import random
 
 from WordleDictionary import FIVE_LETTER_WORDS
-from WordleGraphics import WordleGWindow, N_COLS, N_ROWS, CORRECT_COLOR, PRESENT_COLOR, MISSING_COLOR, UNKNOWN_COLOR, KEY_LABELS
+from WordleGraphics import WordleGWindow, N_COLS, N_ROWS, CORRECT_COLOR, PRESENT_COLOR, MISSING_COLOR, UNKNOWN_COLOR
 
-# returns true if the input is a valid 5-letter english word
+# Milestone 1 Function
+def set_first_row_random(gw):
+    # Choose random word from WordleDictionary.py
+    randomWord = random.choice(FIVE_LETTER_WORDS)
+    # Set first row characters to the characters from randomWord
+    for col in range(0, N_COLS):
+        gw.set_square_letter(0, col, randomWord[col].upper())
+
 def is_english(word):
     return word.lower() in FIVE_LETTER_WORDS
 
@@ -57,12 +64,6 @@ def colorize_keyboard(guess, answer, gw):
         # Set to dark grey if not in word
         if not(guess_letter in answer):
             gw.set_key_color(guess_letter.upper(), MISSING_COLOR)
-        
-
-    
-
-    # gw.set_key_color('K', CORRECT_COLOR)
-    return
 
 def wordle():
 
@@ -70,16 +71,9 @@ def wordle():
     # answer = "HELLO"
     answer = random.choice(FIVE_LETTER_WORDS).upper()
     print(answer)
-    guessNum = 0
 
-    # Choose random word from WordleDictionary.py
-    # randomWord = random.choice(FIVE_LETTER_WORDS)
-    # Set first row characters to the characters from randomWord
-    # for col in range(0, N_COLS):
-    #     gw.set_square_letter(0, col, randomWord[col].upper())
-
-    #set_keyboard_colors_default(gw)
-
+    # set_first_row_random(gw)
+    
     def enter_action(guess):
         if(" " in guess):
             return
