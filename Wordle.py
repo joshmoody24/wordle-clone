@@ -10,6 +10,8 @@ import random
 from WordleDictionary import FIVE_LETTER_WORDS
 from WordleGraphics import WordleGWindow, N_COLS, N_ROWS, CORRECT_COLOR, PRESENT_COLOR, MISSING_COLOR, UNKNOWN_COLOR
 
+GUESS_LIMIT = 5
+
 # Milestone 1 Function
 def set_first_row_random(gw):
     # Choose random word from WordleDictionary.py
@@ -85,8 +87,11 @@ def wordle():
         # Tells the user when they guessed the right word
         if guess == answer:
             gw.show_message("That's correct! Nice job!")
-        
-        gw.set_current_row(gw.get_current_row() + 1)
+
+        if (gw.get_current_row() != GUESS_LIMIT) :
+            gw.set_current_row(gw.get_current_row() + 1)
+        else :
+            gw.show_message("The word was \"" + answer + "\"")
     
     gw.add_enter_listener(enter_action)
 
